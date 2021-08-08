@@ -1,7 +1,7 @@
 # post_it_app
-This Node JS application lets you to sign up and create posts or stories which can be viewed by fellow users.
-Tech stack: Node JS runtime, Express JS server, EJS server side template, MongoDB Atlas as database
-Other: AWS S3 for image storage, JWT enabled authentication, MVC design pattern, Video streaming capability, Heroku for deployment
+This Node JS application lets you to sign up and create posts or stories which can be viewed by fellow users. 
+Tech stack: Node JS runtime, Express JS server, EJS server side template, MongoDB Atlas as database. 
+Other: AWS S3 for image storage, JWT enabled authentication, MVC design pattern, Video streaming capability, Heroku for deployment.
 
 Application deployed on Heroku: https://post-it-app-div.herokuapp.com/login
 
@@ -55,12 +55,12 @@ Folder structure:
 
 
 For running on localhost, create 'config.env' file inside 'config' folder and initialize below data:
-PORT
-MONGO_URI
-JWT_SECRET
-AWS_SECRET
-AWS_KEY
-AWS_REGION_ID
+PORT, 
+MONGO_URI, 
+JWT_SECRET, 
+AWS_SECRET, 
+AWS_KEY, 
+AWS_REGION_ID, 
 AWS_BUCKET
 
 Then on terminal, run below command:
