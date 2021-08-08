@@ -1,0 +1,89 @@
+<%- include('partials/header'); -%>
+<div class="container">
+  <div class="row">
+    <form enctype="multipart/form-data" class="col-sm-12 col-md-8 col-lg-6 my-5">
+      <h2>Sign up</h2>
+      <div class="mb-3 mt-4">
+        <label for="name" class="form-label">Name<span class="text-danger"> &#42;</span></label>
+        <input type="text" name="name" class="form-control" required />
+        <div class="error name"></div>
+      </div>
+    
+      <div class="mb-3">
+        <label for="email" class="form-label">Email<span class="text-danger"> &#42;</span></label>
+        <input type="text" name="email" class="form-control" required />
+        <div class="error email"></div>
+      </div>
+    
+      <div class="mb-3">
+        <label for="password" class="form-label">Password<span class="text-danger"> &#42;</span></label>
+        <input type="password" name="password" class="form-control" required />
+        <div class="error password"></div>
+      </div>
+    
+      <div class="mb-3">
+        <label for="avatar" class="form-label">Upload your photo:</label>
+        <input type="file" id="avatar" name="avatar" class="form-control">
+      </div>
+    
+      <button class="btn btn-primary mt-4 mb-5" type="submit">Register</button>
+      <!-- I can use class as 'submit' but putting this is 'form' 
+            automatically fires a submit event -->
+    </form>
+  </div>
+</div>
+
+<script>
+  const form = document.querySelector("form")
+  const nameError = document.querySelector('.name.error')
+  const emailError = document.querySelector('.email.error')
+  const passwordError = document.querySelector('.password.error')
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    //reset errors
+    nameError.textContent = ''
+    emailError.textContent = ''
+    passwordError.textContent = ''
+
+    //get the values
+    const name = form.name.value
+    const email = form.email.value
+    const password = form.password.value
+    // const avatar = form.avatar.value
+    let avatar = document.getElementById("avatar").files[0]
+    let formData = new FormData()
+
+    formData.append("avatar", avatar)
+    formData.append("name", name)
+    formData.append("email", email)
+    formData.append("password", password)
+
+    // console.log('form details: ', name, email, password)
+    // console.log('form dataL ', formData)
+    try {
+      const res = await fetch('/register', {
+        method: 'POST',
+        body: formData,
+        // headers: { 'Content-Type': 'application/json' }
+      })
+      const data = await res.json()
+      //data can either be {user: user._id} or {errors} object
+      // console.log("data in script: ", data)
+      if (data.errors) {
+        nameError.textContent = data.errors.name
+        emailError.textContent = data.errors.email
+        passwordError.textContent = data.errors.password
+      }
+      if (data.user) {
+        //redirecting from front end
+        location.assign('/dashboard')
+      }
+    } catch (error) {
+      console.log(error); //this can occur for problems like endpoint is not correct or
+      //if there is a server error
+    }
+  })
+</script>
+<%- include('partials/footer'); -%>

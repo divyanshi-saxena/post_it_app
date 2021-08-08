@@ -1,0 +1,58 @@
+<%- include('partials/header'); -%>
+<div class="mx-3 mt-3 mb-1 p-2 d-flex justify-content-start align-items-center">
+  <img src="<%= user.avatar %>" alt="user-photo" class="avatar me-4">
+  <h3 class="fw-light">Welcome, <%= user.name %></h3>
+</div>
+<!-- <h3 class="my-1 p-2 text-center">Dashboard</h3> -->
+<blockquote class="blockquote text-center quote">
+  <p class="mb-2">“A professional writer is an amateur who didn’t quit.”</p>
+  <footer class="blockquote-footer mt-2"><cite title="Source Title">Richard Bach</cite></footer>
+</blockquote>
+<div class="container">
+  <div class="row">
+    <!-- <div class="col-12"> -->
+      <video class="col-sm-12 col-md-8 col-lg-6 vid" id="videoPlayer" width="650" controls muted="muted" autoplay>
+        <source src="/video" type="video/mp4" />
+      </video>
+    <!-- </div> -->
+  </div>
+</div>
+
+<div class="text-center">
+<!-- <button> -->
+  <a href="/create_post" class="btn btn-primary">Create a Post</a>
+<!-- </button> -->
+<!-- <button> -->
+  <a href="/get_all_posts" class="btn btn-outline-primary">Show All Posts</a>
+<!-- </button> -->
+</div>
+
+<div class="container">
+  <div class="row my-3">
+    
+  <% if(posts.length !== 0) { %>
+    <h4 class="m-2 p-4">your posts</h4>
+    <% posts.forEach((post)=> { %>
+      <div class="card col-sm-12 col-md-6 col-lg-4 my-2 mx-auto text-end" style="width: 18rem;">
+        <img src="<%= post.image %>" class="card-img-top" alt="..." style="object-fit: cover" height="100px">
+        <div class="card-body">
+          <h5 class="card-title text-decoration-none">
+            <a href="/single_post/<%= post._id %>"><%= post.title %></a>
+          </h5>
+          <p class="card-text"><%= post.description.substr(0,30) %>...
+          </p>
+          <div>
+            <a href="/edit_post/<%= post._id %>" class="btn btn-outline-primary">Edit</a>
+            <a href="/delete_post/<%= post._id %>" class="btn btn-outline-danger">Delete</a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+    <% } else { %>
+      <div>
+      <p>You have no posts... Create one !</p>    
+      </div>
+    <% } %>
+  </div>
+  </div>
+<%- include('partials/footer'); -%>

@@ -1,0 +1,38 @@
+<%- include('../partials/header'); -%>
+<% if(post) { %>
+  <div class="text-end m-2 p-2">
+    <a href="/get_all_posts" class="btn btn-light">All Posts</a>
+  </div>
+    
+      <div class="container-fluid">
+        <div class="row">
+        <img src="<%= post.image %>" class="col-12 singleImage mb-3" alt="">
+        </div>
+      </div>
+      <div class="post">
+        <div class="d-flex justify-content-between mb-3">
+      <h1 class="title">
+        <%= post.title %>
+      </h1>
+      <% if(user._id.toString() === post.user._id.toString()) { %>
+      <div>
+        <a href="/edit_post/<%= post._id %>" class="btn btn-outline-primary">Edit</a>
+        <a href="/delete_post/<%= post._id %>" class="btn btn-outline-danger">Delete</a>
+      </div>
+      <% } %>
+      </div>
+      <div class="d-flex justify-content-between my-2">
+      <p class="author">
+        - by <%= post.user.name %>
+      </p>
+      <p class="date"><%= post.createdAt %></p>
+      </div>
+      <hr />
+      <h4 class="desc mt-4" id="desc">
+        <%= post.description %>
+      </h4>
+      <br>
+      <p class="text-center">Made with &#x1F9E1;  by <%= post.user.name %> (<%= post.user.email %>)</p>
+    </div>
+      <% } %>
+<%- include('../partials/footer'); -%>

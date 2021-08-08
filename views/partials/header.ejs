@@ -1,0 +1,36 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post It !</title>
+  <link rel="icon" href="/logo.png">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+  <nav class="d-flex justify-content-between align-items-center p-2">
+    <h1><a href="#" class="text-decoration-none ps-3">Post It</a></h1>
+    <ul class="d-flex justify-content-between pt-3 nav-header">
+      <% if(user) { %>
+        
+        <li>
+          <a href="/dashboard" class="btn">Dashboard</a>
+          <a href="/logout" class="btn">Log out</a>
+        </li>
+        
+        <% } else { %>
+          <li>
+            <a href="/login" class="btn">Log in</a>
+            <a href="/register" class='btn'>Register</a>
+          </li>
+          <!-- <li>
+            
+          </li> -->
+          <% } %>
+    </ul>
+  </nav>

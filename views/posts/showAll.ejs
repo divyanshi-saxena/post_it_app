@@ -1,0 +1,23 @@
+<%- include('../partials/header'); -%>
+<h3 class="mt-4 p-2 text-center">All Posts</h3>
+<div class="container">
+  <div class="row">
+  <% if(posts) { %>
+    <% posts.forEach((post)=> { %>
+      <div class="card col-sm-12 col-md-6 col-lg-4 my-4 mx-auto text-end" style="width: 18rem;">
+        <img src="<%= post.image %>" class="card-img-top" alt="..." style="object-fit: cover" height="100px">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= post.title %>
+          </h5>
+          <p class="card-text">
+            <%= post.description %>...
+          </p>
+            <a href="/single_post/<%= post._id %>" class="btn btn-outline-primary">Read more...</a>
+        </div>
+      </div>
+      <% }) %>
+    <% } %>
+    </div>
+    </div>
+<%- include('../partials/footer'); -%>

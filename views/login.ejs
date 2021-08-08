@@ -1,0 +1,67 @@
+<%- include('partials/header'); -%>
+<div class="container">
+  <div class="row">
+
+    <form class="col-sm-12 col-md-8 col-lg-6 mt-5">
+      <h2>Sign in</h2>
+      <div class="mb-3 mt-4">
+        <label for="email" class="form-label">Email<span class="text-danger"> &#42;</span></label>
+        <input type="text" name="email" class="form-control" required />
+        <!-- type can be 'email' for validation purposes -->
+        <div class="error email"></div>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password<span class="text-danger"> &#42;</span></label>
+        <input type="password" name="password" class="form-control" required />
+        <!-- 'password' type means little black dots -->
+        <div class="error password"></div>
+      </div>
+      <button type="submit" class="btn btn-primary mt-4">Log in</button>
+      <!-- I can use class as 'submit' but putting this is 'form' 
+            automatically fires a submit event -->
+    </form>
+  </div>
+</div>
+
+
+<script>
+  const form = document.querySelector("form")
+  const emailError = document.querySelector('.email.error')
+  const passwordError = document.querySelector('.password.error')
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault(); // we don't want page to refresh
+
+    //reset errors
+    emailError.textContent = '';
+    passwordError.textContent = '';
+
+    //get the values
+    const email = form.email.value;
+    const password = form.password.value;
+    //console.log(email, password);
+
+    try {
+      const res = await fetch('/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }), //ES6 notation
+        headers: { 'Content-Type': 'application/json' }
+      })
+      const data = await res.json()
+      //data can either be {user: user._id} or {errors} object
+      // console.log(data);
+      if (data.errors) {
+        emailError.textContent = data.errors.email;
+        passwordError.textContent = data.errors.password;
+      }
+      if (data.user) {
+        //redirecting from front end 
+        location.assign('/dashboard') //relocating to home page
+      }
+    } catch (error) {
+      console.log(error); //this can occur for problems like endpoint is not correct or
+      //if there is a server error
+    }
+  })
+</script>
+<%- include('partials/footer'); -%>
