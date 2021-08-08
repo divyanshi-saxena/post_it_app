@@ -5,7 +5,7 @@ const multerS3 = require('multer-s3')
 aws.config.update({
     secretAccessKey: process.env.AWS_SECRET,
     accessKeyId: process.env.AWS_ID,
-    region: process.env.AWS_REGION
+    region: process.env.AWS_REGION_ID
 })
 
 const fileFilter = (req, file, cb) => {
